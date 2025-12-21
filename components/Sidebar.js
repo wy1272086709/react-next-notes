@@ -1,10 +1,10 @@
 import React, { Suspense } from 'react'
 import Link from 'next/link'
-import SiderbarNoteList from './SidebarNoteList'
-import EditButton from './EditButton'
-import NoteListSkeleton from './NoteListSkeleton'
-import SidebarSearchField from './SidebarSearchField'
-import SidebarImport from './SidebarImport'
+import SidebarSearchField from '@/components/SidebarSearchField';
+import SidebarNoteList from '@/components/SidebarNoteList';
+import EditButton from '@/components/EditButton';
+import NoteListSkeleton from '@/components/NoteListSkeleton';
+import SidebarImport from '@/components/SidebarImport';
 
 export default async function Sidebar() {
   return (
@@ -24,13 +24,12 @@ export default async function Sidebar() {
           </section>
         </Link>
         <section className="sidebar-menu" role="menubar">
-          {/* SideSearchField */}
           <SidebarSearchField />
           <EditButton noteId={null}>New</EditButton>
         </section>
         <nav>
           <Suspense fallback={<NoteListSkeleton />}>
-            <SiderbarNoteList />
+            <SidebarNoteList />
           </Suspense>
         </nav>
         <SidebarImport />

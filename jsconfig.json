@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    "jsx": "react",
     "baseUrl": ".",
     "paths": {
-      "@/auth": ["./auth"],
-      "@/*": ["./src/*"],
-      "@/components/*": ["./components/*"],
-      "@/lib/*": ["./lib/*"],
+      "@/actions": ["app/actions.js"],
+      "@/*": ["/*"],
+      "auth": ["./auth"]
     }
   }
 }

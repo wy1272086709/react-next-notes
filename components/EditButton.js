@@ -1,4 +1,3 @@
-// components/EditButton.js
 import Link from 'next/link'
 
 export default function EditButton({noteId, children}) {

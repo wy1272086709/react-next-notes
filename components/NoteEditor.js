@@ -1,25 +1,28 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import NotePreview from '@components/NotePreview'
-import { useFormState, useFormStatus } from 'react-dom'
-import SaveButton from '@components/SaveButton'
-import DeleteButton from '@components/DeleteButton'
-import { saveNote, deleteNote } from '@app/actions'
+import { useEffect, useRef, useState } from 'react'
+import NotePreview from '@/components/NotePreview'
+import { useFormState } from 'react-dom'
+import { deleteNote, saveNote } from '../app/actions'
+import SaveButton from '@/components/SaveButton'
+import DeleteButton from '@/components/DeleteButton'
+
 const initialState = {
   message: null,
 }
+
 export default function NoteEditor({
   noteId,
   initialTitle,
   initialBody
 }) {
+
   const [saveState, saveFormAction] = useFormState(saveNote, initialState)
   const [delState, delFormAction] = useFormState(deleteNote, initialState)
-  console.log('saveState', saveState);
-  const { pending } = useFormStatus()
+
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
+
   const isDraft = !noteId
 
   useEffect(() => {
@@ -41,13 +44,13 @@ export default function NoteEditor({
           { saveState?.message }
           { saveState.errors && saveState.errors[0].message }
         </div>
-        <label className="offscreen" htmlFor="title">
+        <label className="offscreen" htmlFor="note-title-input">
           Enter a title for your note
         </label>
         <input
-          id="title"
-          name="title"
+          id="note-title-input"
           type="text"
+          name="title"
           value={title}
           onChange={(e) => {
             setTitle(e.target.value)
@@ -57,9 +60,9 @@ export default function NoteEditor({
           Enter the body for your note
         </label>
         <textarea
-          value={body}
           name="body"
-          id="body"
+          value={body}
+          id="note-body-input"
           onChange={(e) => setBody(e.target.value)}
         />
       </form>

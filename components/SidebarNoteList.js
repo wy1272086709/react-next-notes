@@ -1,13 +1,15 @@
-// 'use client';
-import SidebarNoteListFilter from "./SidebarNoteListFilter";
-import SidebarNoteItemHeader from "./SidebarNoteItemHeader";
-import { getAllNotes } from "../lib/strapi";
+import SidebarNoteListFilter from '@/components/SidebarNoteListFilter';
+import { getAllNotes } from '@/lib/prisma';
+import { sleep } from '@/lib/utils';
+import { prisma } from "@/lib/prisma"
+import SidebarNoteItemHeader from '@/components/SidebarNoteItemHeader';
 
 export default async function NoteList() {
-  const notes = await getAllNotes();
-  const arr = Object.entries(notes);
-  console.log('notes', notes);
-  if (arr.length == 0) {
+
+  // await sleep(2000)
+  const notes = await getAllNotes()
+
+  if (Object.entries(notes).length == 0) {
     return <div className="notes-empty">
       {'No notes created yet!'}
     </div>

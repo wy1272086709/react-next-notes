@@ -1,6 +1,7 @@
 'use client'
+
 import { useSearchParams } from 'next/navigation'
-import SidebarNoteItemContent from './SidebarNoteItemContent';
+import SidebarNoteItemContent from '@/components/SidebarNoteItemContent';
 
 export default function SidebarNoteList({ notes }) {
   const searchParams = useSearchParams()
@@ -8,9 +9,10 @@ export default function SidebarNoteList({ notes }) {
   return (
     <ul className="notes-list">
       {notes.map(noteItem => {
-        const {noteId, note, header} = noteItem;
+        const { noteId, note, header } = noteItem;
         if (!searchText || (searchText && note.title.toLowerCase().includes(searchText.toLowerCase()))) {
           return (
+          <li key={noteId}>
             <SidebarNoteItemContent
               key={noteId}
               id={noteId}
@@ -20,8 +22,9 @@ export default function SidebarNoteList({ notes }) {
                   {note.content.substring(0, 20) || <i>(No content)</i>}
                 </p>
               }>
-                {header}
+              {header}
             </SidebarNoteItemContent>
+          </li>
           )
         }
 
@@ -30,4 +33,3 @@ export default function SidebarNoteList({ notes }) {
     </ul>
   )
 }
-

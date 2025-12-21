@@ -1,10 +1,7 @@
-import { headers } from 'next/headers';
+import { getCsrfToken } from 'next-auth/react';
 
 export default async function SignIn() {
-  const headersList = await headers();
-  const host = headersList.get('host');
-  const response = await fetch(`https://${host}/api/auth/csrf`);
-  const {csrfToken} = await response.json()
+  const csrfToken = await getCsrfToken();
   return (
     <form method="post" action="/api/auth/callback/credentials">
       <input type="hidden" name="csrfToken" value={csrfToken} />

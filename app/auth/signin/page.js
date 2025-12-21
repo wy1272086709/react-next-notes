@@ -1,6 +1,9 @@
-'use client';
+import { headers } from 'next/headers';
+
 export default async function SignIn() {
-  const response = await fetch(`${window.location.origin}/api/auth/csrf`);
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const response = await fetch(`https://${host}/api/auth/csrf`);
   const {csrfToken} = await response.json()
   return (
     <form method="post" action="/api/auth/callback/credentials">

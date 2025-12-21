@@ -23,7 +23,6 @@ export default async function SignIn() {
         redirect('/auth/signin?error=CredentialsSignin');
       }
     }}>
-      <input type="hidden" name="csrfToken" value={csrfToken} />
       <label>
         Username
         <input name="username" type="text" />

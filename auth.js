@@ -38,6 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: '/auth/signin'
   },
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   callbacks: {
     authorized({ request, auth }) {
       const { pathname } = request.nextUrl

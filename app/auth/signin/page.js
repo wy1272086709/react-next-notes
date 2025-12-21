@@ -1,4 +1,4 @@
-'use client'
+'use client';
 export default async function SignIn() {
   const response = await fetch(`${window.location.origin}/api/auth/csrf`);
   const {csrfToken} = await response.json()

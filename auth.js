@@ -3,7 +3,7 @@ import GitHub from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { addUser, getUser } from "@/lib/prisma";
 
-const authOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     CredentialsProvider({
       name: "密码登录",
@@ -45,6 +45,4 @@ const authOptions = {
     },
   },
   trustHost: true,
-};
-
-export default NextAuth(authOptions);
+});

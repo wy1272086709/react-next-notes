@@ -4,6 +4,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { addUser, getUser } from "@/lib/prisma";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  logger: {
+    error(code, ...message) {
+      console.error(code, message)
+    },
+  },
   providers: [
     CredentialsProvider({
       name: "密码登录",

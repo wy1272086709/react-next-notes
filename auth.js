@@ -54,5 +54,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.user.userId = token.userId;
       return session;
     }
-  }
+  },
+  trustHost: true
 })

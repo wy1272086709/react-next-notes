@@ -1,20 +1,22 @@
-'use client';
+'use client'
 
 import { useEffect, useState } from "react";
 
 export default function SignIn() {
-  const [csrfToken, setCsrfToken] = useState('');
+
+  const [token, setToken] = useState('')
+
   useEffect(() => {
-    const fetchCsrfToken = async () => {
-      const response = await fetch(`/api/auth/csrf`);
-      const {csrfToken} = await response.json()
-      setCsrfToken(csrfToken)
-    };
-    fetchCsrfToken();
-  }, []);
+    async function fetchData() {
+      const response =  await fetch(`//${location.host}/api/auth/csrf`);
+      const { csrfToken } = await response.json();
+      setToken(csrfToken)
+    }
+    fetchData();
+  }, [])
   return (
     <form method="post" action="/api/auth/callback/credentials">
-      <input type="hidden" name="csrfToken" value={csrfToken} />
+      <input type="hidden" name="csrfToken" value={token} />
       <label>
         Username
         <input name="username" type="text" />

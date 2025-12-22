@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 
 const schema = z.object({
   title: z.string(),
-  content: z.string().min(1, '请填写内容').max(2000, '字数最多 2000')
+  content: z.string().min(1, '请填写内容').max(100, '字数最多 100')
 });
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -95,7 +95,7 @@ export async function importNote(formData) {
       title: filename,
       content: buffer.toString('utf-8')
     }))
-    console.log('addNote:res', res)
+
     // 清除缓存
     revalidatePath('/', 'layout')
 

@@ -10,24 +10,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
   },
   providers: [
-    CredentialsProvider({
-      name: "密码登录",
-      credentials: {
-        username: { label: "账号", type: "text", placeholder: "输入您的账号" },
-        password: { label: "密码", type: "password", placeholder: "输入您的密码" },
-      },
-      async authorize(credentials, req) {
-        let user = await getUser(credentials.username, credentials.password);
-        if (user === 1) return null;
-        if (user === 0) {
-          user = await addUser(credentials.username, credentials.password);
-        }
-        if (!user) {
-          throw new Error("User was not found and could not be created.");
-        }
-        return user;
-      },
-    }),
+    // CredentialsProvider({
+    //   name: "密码登录",
+    //   credentials: {
+    //     username: { label: "账号", type: "text", placeholder: "输入您的账号" },
+    //     password: { label: "密码", type: "password", placeholder: "输入您的密码" },
+    //   },
+    //   async authorize(credentials, req) {
+    //     let user = await getUser(credentials.username, credentials.password);
+    //     if (user === 1) return null;
+    //     if (user === 0) {
+    //       user = await addUser(credentials.username, credentials.password);
+    //     }
+    //     if (!user) {
+    //       throw new Error("User was not found and could not be created.");
+    //     }
+    //     return user;
+    //   },
+    // }),
   ],
   pages: {
     signIn: "/auth/signin",

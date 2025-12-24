@@ -17,7 +17,7 @@ model User {
 model Note {
   id        String   @id @default(cuid())
   title     String   @db.VarChar(255)
-  content   String?
+  content   String?  @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id])

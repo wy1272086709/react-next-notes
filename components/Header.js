@@ -10,7 +10,7 @@ function SignIn({
     <form
       action={async () => {
         "use server"
-        await signIn(provider)
+        await signIn(provider, { callbackUrl: "/auth/signin" })
       }}
     >
       <button {...props}>Sign In</button>

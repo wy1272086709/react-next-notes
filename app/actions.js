@@ -73,11 +73,12 @@ export async function importNote(formData) {
       access: 'public', // 文件可公开访问
       addRandomSuffix: true, // 为文件名添加随机后缀
     });
+    const bytes = await file.arrayBuffer();
     // 调用接口，写入数据库
     const res = await addNote(JSON.stringify({
       title: filename,
-      content: buffer.toString('utf-8')
-    }))
+      content: Buffer.from(bytes).toString('utf-8')
+    }));
 
     // 清除缓存
     revalidatePath('/', 'layout');

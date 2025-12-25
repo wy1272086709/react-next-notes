@@ -5,8 +5,8 @@ import { updateNote, delNote} from '@/lib/prisma';
 import { addNote } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { z } from "zod";
-import { stat, mkdir, writeFile } from 'fs/promises'
-import { join } from "path";
+import { put } from '@vercel/blob';
+import { NextResponse } from 'next/server';
 import mime from "mime";
 import dayjs from 'dayjs';
 
@@ -67,29 +67,11 @@ export async function importNote(formData) {
     return { error: "File is required." };
   }
 
-  // 写入文件
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const relativeUploadDir = `/uploads/${dayjs().format("YY-MM-DD")}`;
-  const uploadDir = join(process.cwd(), "public", relativeUploadDir);
-
   try {
-    await stat(uploadDir);
-  } catch (e) {
-    if (e.code === "ENOENT") {
-      await mkdir(uploadDir, { recursive: true });
-    } else {
-      console.error(e)
-      return { error: "Something went wrong." }
-    }
-  }
-
-  try {
-    // 写入文件
-    const uniqueSuffix = `${Math.random().toString(36).slice(-6)}`;
     const filename = file.name.replace(/\.[^/.]+$/, "")
-    const uniqueFilename = `${filename}-${uniqueSuffix}.${mime.getExtension(file.type)}`;
-    await writeFile(`${uploadDir}/${uniqueFilename}`, buffer);
-
+    const blob = await put(file.name, file, {
+      access: 'public', // 文件可公开访问
+    });
     // 调用接口，写入数据库
     const res = await addNote(JSON.stringify({
       title: filename,
@@ -97,9 +79,8 @@ export async function importNote(formData) {
     }))
 
     // 清除缓存
-    revalidatePath('/', 'layout')
-
-    return { fileUrl: `${relativeUploadDir}/${uniqueFilename}`, uid: res }
+    revalidatePath('/', 'layout');
+    return { fileUrl: blob.pathname, uid: res }
   } catch (e) {
     console.error(e)
     return { error: "Something went wrong." }

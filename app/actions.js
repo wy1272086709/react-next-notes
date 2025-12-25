@@ -6,9 +6,6 @@ import { addNote } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { z } from "zod";
 import { put } from '@vercel/blob';
-import { NextResponse } from 'next/server';
-import mime from "mime";
-import dayjs from 'dayjs';
 
 const schema = z.object({
   title: z.string(),
@@ -74,9 +71,10 @@ export async function importNote(formData) {
       addRandomSuffix: true, // 为文件名添加随机后缀
     });
     const bytes = await file.arrayBuffer();
+    console.log('filename:', filename.toString('utf-8'));
     // 调用接口，写入数据库
     const res = await addNote(JSON.stringify({
-      title: filename,
+      title: filename.toString('utf-8'),
       content: Buffer.from(bytes).toString('utf-8')
     }));
 

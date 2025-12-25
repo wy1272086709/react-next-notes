@@ -71,6 +71,7 @@ export async function importNote(formData) {
     const filename = file.name.replace(/\.[^/.]+$/, "")
     const blob = await put(file.name, file, {
       access: 'public', // 文件可公开访问
+      addRandomSuffix: true, // 为文件名添加随机后缀
     });
     // 调用接口，写入数据库
     const res = await addNote(JSON.stringify({

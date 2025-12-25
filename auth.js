@@ -1,14 +1,10 @@
 import NextAuth from "next-auth";
-import GitHub from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { addUser, getUser } from "@/lib/prisma";
+import { authConfig } from "auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  logger: {
-    error(code, ...message) {
-      console.error(code, message)
-    },
-  },
+  ...authConfig,
   providers: [
     CredentialsProvider({
       name: "密码登录",
@@ -33,11 +29,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: "/auth/signin",
   },
   callbacks: {
-    authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
-      if (pathname.startsWith("/note/edit")) return !!auth;
-      return true;
-    },
+    ...authConfig.callbacks,
     async jwt({ token, user, account }) {
       if (account && account.type === "credentials" && user) {
         token.userId = user.userId;

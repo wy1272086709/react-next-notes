@@ -9,7 +9,7 @@ import { put } from '@vercel/blob';
 
 const schema = z.object({
   title: z.string(),
-  content: z.string().min(1, '请填写内容').max(100, '字数最多 100')
+  content: z.string().min(1, '请填写内容').max(1050, '字数最多 100')
 });
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));

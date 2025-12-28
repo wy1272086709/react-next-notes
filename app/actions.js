@@ -65,6 +65,7 @@ export async function importNote(formData) {
   }
 
   try {
+    console.log('上传的文件信息：', file);
     const filename = file.name.replace(/\.[^/.]+$/, "")
     const blob = await put(file.name, file, {
       access: 'public', // 文件可公开访问

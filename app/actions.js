@@ -57,6 +57,7 @@ export async function deleteNote(prevState, formData) {
 }
 
 export async function importNote(formData) {
+  'use server';
   const file = formData.get('file')
 
   // 空值判断
@@ -69,9 +70,14 @@ export async function importNote(formData) {
     const filename = file.name.replace(/\.[^/.]+$/, "")
     const blob = await put(file.name, file, {
       access: 'public', // 文件可公开访问
+      contentType: file.type, // 保持原有的文件类型
+      metadata: {
+        originalName: file.name,
+      },
       addRandomSuffix: true, // 为文件名添加随机后缀
     });
     const bytes = await file.arrayBuffer();
+    console.log('blob:', blob);
     console.log('filename:', filename.toString('utf-8'));
     // 调用接口，写入数据库
     const res = await addNote(JSON.stringify({

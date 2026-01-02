@@ -20,3 +20,11 @@ export default async function RootLayout({
     </html>
   )
 }
+
+export function generateMetadata() {
+  return {
+    title: 'React Next Notes',
+    charset: 'utf-8',
+    description: 'A simple note-taking app built with React and Next.js',
+  }
+}

@@ -66,6 +66,9 @@ export async function importNote(formData) {
   }
 
   try {
+    console.log('2. File 对象名称的字节表示:', new TextEncoder().encode(file.name));
+    console.log('3. 通过 URL 编码后的名称:', encodeURIComponent(file.name));
+    console.log('4. 当前 Node.js 环境语言环境:', process.env.LANG);
     console.log('上传的文件信息：', file);
     const filename = file.name.replace(/\.[^/.]+$/, "")
     const blob = await put(file.name, file, {

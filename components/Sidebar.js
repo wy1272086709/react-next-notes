@@ -10,19 +10,28 @@ export default async function Sidebar() {
   return (
     <>
       <section className="col sidebar">
-        <Link href={'/'} className="link--unstyled">
+        <div style={{ 
+            display: 'flex',
+            alignItems: 'center',
+            paddingRight: '10px',
+            marginTop: '10px',
+            marginBottom: '10px',
+         }}>
           <section className="sidebar-header">
-            <img
-              className="logo"
-              src="/logo.svg"
-              width="22px"
-              height="20px"
-              alt=""
-              role="presentation"
-            />
-            <strong>React Notes</strong>
+            <Link href="/" className="sidebar-logo-link" aria-label="React Notes Home">
+              <img
+                className="logo"
+                src="/logo.svg"
+                width="22px"
+                height="20px"
+                alt=""
+                role="presentation"
+              />
+              <strong>React Notes</strong>
+            </Link>
           </section>
-        </Link>
+          <SidebarImport />
+        </div>
         <section className="sidebar-menu" role="menubar">
           <SidebarSearchField />
           <EditButton noteId={null}>New</EditButton>
@@ -32,7 +41,6 @@ export default async function Sidebar() {
             <SidebarNoteList />
           </Suspense>
         </nav>
-        <SidebarImport />
       </section>
     </>
   )

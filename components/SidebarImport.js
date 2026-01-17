@@ -38,7 +38,7 @@ export default function SidebarImport() {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <label htmlFor="file" style={{ cursor: 'pointer' }}>{t('import')}</label>
+      <label htmlFor="file" style={{ cursor: 'pointer', color: "var(--primary-blue)" }}>{t('import')}</label>
       <input type="file" id="file" name="file" style={{ position : "absolute", clip: "rect(0 0 0 0)" }} onChange={ onChange } accept=".md" />
     </div>
   )

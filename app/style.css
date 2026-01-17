@@ -282,8 +282,12 @@ ul.notes-list {
 .sidebar-header {
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  padding: 36px 16px 16px;
+  padding: 16px;
   display: flex;
+  align-items: center;
+}
+.sidebar-logo-link {
+  display: inline-flex;
   align-items: center;
 }
 .sidebar-menu {

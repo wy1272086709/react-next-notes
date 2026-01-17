@@ -1,17 +1,17 @@
 import SidebarNoteListFilter from '@/components/SidebarNoteListFilter';
 import { getAllNotes } from '@/lib/prisma';
-import { sleep } from '@/lib/utils';
-import { prisma } from "@/lib/prisma"
 import SidebarNoteItemHeader from '@/components/SidebarNoteItemHeader';
+import {getTranslations} from 'next-intl/server';
 
 export default async function NoteList() {
+  const t = await getTranslations('note');
 
   // await sleep(2000)
   const notes = await getAllNotes()
 
   if (Object.entries(notes).length == 0) {
     return <div className="notes-empty">
-      {'No notes created yet!'}
+      {t('emptyState')}
     </div>
   }
 

@@ -6,6 +6,7 @@ import { useFormState } from 'react-dom'
 import { deleteNote, saveNote } from '../app/actions'
 import SaveButton from '@/components/SaveButton'
 import DeleteButton from '@/components/DeleteButton'
+import {useTranslations} from 'next-intl';
 
 const initialState = {
   message: null,
@@ -22,6 +23,8 @@ export default function NoteEditor({
 
   const [title, setTitle] = useState(initialTitle)
   const [body, setBody] = useState(initialBody)
+  const t = useTranslations('note');
+  const tCommon = useTranslations('common');
 
   const isDraft = !noteId
 
@@ -45,7 +48,7 @@ export default function NoteEditor({
           { saveState.errors && saveState.errors[0].message }
         </div>
         <label className="offscreen" htmlFor="note-title-input">
-          Enter a title for your note
+          {t('titleInputLabel')}
         </label>
         <input
           id="note-title-input"
@@ -57,7 +60,7 @@ export default function NoteEditor({
           }}
         />
         <label className="offscreen" htmlFor="note-body-input">
-          Enter the body for your note
+          {t('bodyInputLabel')}
         </label>
         <textarea
           name="body"
@@ -68,7 +71,7 @@ export default function NoteEditor({
       </form>
       <div className="note-editor-preview">
         <div className="label label--preview" role="status">
-          Preview
+          {tCommon('preview')}
         </div>
         <h1 className="note-title">{title}</h1>
         <NotePreview>{body}</NotePreview>

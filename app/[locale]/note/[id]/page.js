@@ -1,22 +1,23 @@
-import NoteEditor from '@/components/NoteEditor'
+import Note from '@/components/Note'
 import {getNote} from '@/lib/prisma';
+import {getTranslations} from 'next-intl/server';
 
-export default async function EditPage({ params }) {
+export default async function Page({ params }) {
   const noteId = params.id;
   const note = await getNote(noteId)
-
+  const t = await getTranslations('note');
   const sleep = ms => new Promise(r => setTimeout(r, ms));
-  // await sleep(5000);
+  // await sleep(10000);
 
-  if (note === null) {
+  if (note == null) {
     return (
       <div className="note--empty-state">
         <span className="note-text--empty-state">
-          Click a note on the left to view something! 🥺
+          {t('notFound')}
         </span>
       </div>
     )
   }
 
-  return <NoteEditor noteId={noteId} initialTitle={note.title} initialBody={note.content} />
+  return <Note noteId={noteId} note={note} />
 }

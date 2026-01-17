@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useTransition } from 'react';
 import { useRouter, usePathname } from 'next/navigation'
+import {useLocale} from 'next-intl';
 
 export default function SidebarNoteContent({
   id,
@@ -11,7 +12,11 @@ export default function SidebarNoteContent({
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const selectedId = pathname?.split('/')[1] || null
+  const locale = useLocale();
+  // 提取 noteId（在路径 /zh/note/123 中，noteId 是 123）
+  const pathParts = pathname?.split('/') || [];
+  const noteIdInPath = pathParts.length > 2 && pathParts[2] === 'note' ? pathParts[3] : null;
+  const selectedId = noteIdInPath || null
 
   const [isPending] = useTransition()
   const [isExpanded, setIsExpanded] = useState(false)
@@ -56,7 +61,7 @@ export default function SidebarNoteContent({
           if (sidebarToggle) {
             sidebarToggle.checked = true
           }
-          router.push(`/note/${id}`)
+          router.push(`/${locale}/note/${id}`)
         }}>
         Open note for preview
       </button>

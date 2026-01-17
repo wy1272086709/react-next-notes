@@ -1,0 +1,42 @@
+{
+  "common": {
+    "appName": "React Notes",
+    "new": "New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "saving": "Saving",
+    "done": "Done",
+    "preview": "Preview",
+    "search": "Search",
+    "import": "Import .md File",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "signInButton": "Sign in",
+    "username": "Username",
+    "password": "Password",
+    "untitled": "Untitled",
+    "noteList": "Note List"
+  },
+  "sidebar": {
+    "searchPlaceholder": "Search",
+    "searchLabel": "Search for a note by title"
+  },
+  "note": {
+    "emptyState": "Click a note on the left to view something!~ 🥺",
+    "notFound": "Click a note on the left to view something! 🥺",
+    "lastUpdated": "Last updated on",
+    "titleInputLabel": "Enter a title for your note",
+    "bodyInputLabel": "Enter the body for your note",
+    "noContent": "No content"
+  },
+  "meta": {
+    "title": "React Next Notes",
+    "description": "A simple note-taking app built with React and Next.js"
+  },
+  "errors": {
+    "fileRequired": "File is required.",
+    "somethingWentWrong": "Something went wrong.",
+    "processingError": "Processing error"
+  }
+}

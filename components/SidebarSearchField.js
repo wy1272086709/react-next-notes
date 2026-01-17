@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from 'next/navigation'
 import { useTransition } from 'react'
+import {useTranslations} from 'next-intl';
 
 function Spinner({active = true}) {
   return (
@@ -17,6 +18,7 @@ export default function SidebarSearchField() {
   const { replace } = useRouter()
   const pathname = usePathname()
   const [isPending, startTransition] = useTransition()
+  const t = useTranslations('sidebar');
 
   function handleSearch(term) {
     const params = new URLSearchParams(window.location.search)
@@ -34,11 +36,11 @@ export default function SidebarSearchField() {
   return (
     <div className="search" role="search">
       <label className="offscreen" htmlFor="sidebar-search-input">
-        Search for a note by title
+        {t('searchLabel')}
       </label>
       <input
         id="sidebar-search-input"
-        placeholder="Search"
+        placeholder={t('searchPlaceholder')}
         type="text"
         onChange={(e) => handleSearch(e.target.value)}
       />

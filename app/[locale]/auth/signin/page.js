@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState } from "react";
+import {useTranslations} from 'next-intl';
 
 export default function SignIn() {
-
   const [token, setToken] = useState('')
+  const t = useTranslations('common');
 
   useEffect(() => {
     async function fetchData() {
@@ -18,14 +19,14 @@ export default function SignIn() {
     <form method="post" action="/api/auth/callback/credentials">
       <input type="hidden" name="csrfToken" value={token} />
       <label>
-        Username
+        {t('username')}
         <input name="username" type="text" />
       </label>
       <label>
-        Password
+        {t('password')}
         <input name="password" type="password" />
       </label>
-      <button type="submit">Sign in</button>
+      <button type="submit">{t('signInButton')}</button>
     </form>
   )
 }

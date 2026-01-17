@@ -1,0 +1,42 @@
+{
+  "common": {
+    "appName": "React Notes",
+    "new": "新建",
+    "edit": "编辑",
+    "delete": "删除",
+    "save": "保存",
+    "saving": "保存中",
+    "done": "完成",
+    "preview": "预览",
+    "search": "搜索",
+    "import": "导入 .md 文件",
+    "signIn": "登录",
+    "signOut": "退出",
+    "signInButton": "登录",
+    "username": "用户名",
+    "password": "密码",
+    "untitled": "未命名",
+    "noteList": "笔记列表"
+  },
+  "sidebar": {
+    "searchPlaceholder": "搜索",
+    "searchLabel": "按标题搜索笔记"
+  },
+  "note": {
+    "emptyState": "点击左侧的笔记查看内容！~ 🥺",
+    "notFound": "点击左侧的笔记查看内容！ 🥺",
+    "lastUpdated": "最后更新于",
+    "titleInputLabel": "输入笔记标题",
+    "bodyInputLabel": "输入笔记内容",
+    "noContent": "无内容"
+  },
+  "meta": {
+    "title": "React Next Notes",
+    "description": "一个使用 React 和 Next.js 构建的简单笔记应用"
+  },
+  "errors": {
+    "fileRequired": "需要文件。",
+    "somethingWentWrong": "出错了。",
+    "processingError": "处理错误"
+  }
+}

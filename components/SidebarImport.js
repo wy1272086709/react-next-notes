@@ -1,11 +1,13 @@
 'use client'
 
 import React from 'react'
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation'
 import { importNote } from '@/actions'
 
 export default function SidebarImport() {
   const router = useRouter()
+  const t = useTranslations('common');
 
   const onChange = async (e) => {
     const fileInput = e.target;
@@ -36,7 +38,7 @@ export default function SidebarImport() {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <label htmlFor="file" style={{ cursor: 'pointer' }}>Import .md File</label>
+      <label htmlFor="file" style={{ cursor: 'pointer' }}>{t('import')}</label>
       <input type="file" id="file" name="file" style={{ position : "absolute", clip: "rect(0 0 0 0)" }} onChange={ onChange } accept=".md" />
     </div>
   )

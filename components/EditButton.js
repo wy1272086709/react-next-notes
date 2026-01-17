@@ -1,9 +1,13 @@
+'use client'
+
 import Link from 'next/link'
+import {useLocale} from 'next-intl';
 
 export default function EditButton({noteId, children}) {
   const isDraft = noteId == null;
+  const locale = useLocale();
   return (
-    <Link href={`/note/edit/${noteId || ''}`} className="link--unstyled">
+    <Link href={`/${locale}/note/edit/${noteId || ''}`} className="link--unstyled">
       <button
         className={[
           'edit-button',

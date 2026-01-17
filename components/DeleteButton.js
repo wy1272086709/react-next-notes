@@ -1,7 +1,11 @@
+'use client'
+
 import { useFormStatus } from 'react-dom'
+import {useTranslations} from 'next-intl';
 
 export default function DeleteButton({ isDraft, formAction }) {
   const { pending } = useFormStatus()
+  const t = useTranslations('common');
   return !isDraft && (
       <button
         className="note-editor-delete"
@@ -16,7 +20,7 @@ export default function DeleteButton({ isDraft, formAction }) {
           alt=""
           role="presentation"
         />
-        Delete
+        {t('delete')}
       </button>
     )
 }

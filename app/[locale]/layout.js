@@ -3,6 +3,7 @@ import Sidebar from '@/components/Sidebar'
 import Header from '@/components/Header'
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
+import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {locales} from '@/i18n';
 
@@ -14,6 +15,9 @@ export default async function LocaleLayout({
   children,
   params: {locale}
 }) {
+  // 启用静态渲染
+  setRequestLocale(locale);
+
   // 验证 locale
   if (!locales.includes(locale)) {
     notFound();

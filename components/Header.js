@@ -1,21 +1,14 @@
-import { signIn, signOut } from "auth"
 import { auth } from "auth"
-import Link from 'next/link'
 import {SignInButton, SignOutButton} from '@/components/HeaderButton';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-import {getTranslations} from 'next-intl/server';
+import {handleSignIn, handleSignOut} from '@/actions/auth';
 
 function SignIn({
   provider,
   ...props
 }) {
   return (
-    <form
-      action={async () => {
-        "use server"
-        await signIn(provider, { callbackUrl: "/auth/signin" })
-      }}
-    >
+    <form action={handleSignIn.bind(null, provider)}>
       <SignInButton {...props} />
     </form>
   )
@@ -23,12 +16,7 @@ function SignIn({
 
 function SignOut(props) {
   return (
-    <form
-      action={async () => {
-        "use server"
-        await signOut({ redirectTo: '/' })
-      }}
-    >
+    <form action={handleSignOut}>
       <SignOutButton {...props} />
     </form>
   )
@@ -36,12 +24,11 @@ function SignOut(props) {
 
 export default async function Header() {
   const session = await auth()
-  const t = await getTranslations('common');
-  
+
   return (
     <header style={{
-      display: "flex", 
-      justifyContent: "space-between", 
+      display: "flex",
+      justifyContent: "space-between",
       alignItems: "center",
       padding: "16px 24px",
       width: "100%"
@@ -53,7 +40,7 @@ export default async function Header() {
         color: "inherit"
       }}>
       </h1>
-      
+
       <div style={{
         display: "flex",
         alignItems: "center",
@@ -65,7 +52,7 @@ export default async function Header() {
             <SignIn />
           ) : (
             <span style={{
-              display: "flex", 
+              display: "flex",
               alignItems: "center",
               gap: "12px"
             }}>

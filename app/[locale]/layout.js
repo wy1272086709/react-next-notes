@@ -2,6 +2,7 @@ import '../style.css'
 import Sidebar from '@/components/Sidebar'
 import Header from '@/components/Header'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import Providers from '@/components/Providers'
 import {NextIntlClientProvider} from 'next-intl';
 import {getMessages} from 'next-intl/server';
 import {setRequestLocale} from 'next-intl/server';
@@ -30,11 +31,13 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages}>
-          <div className="container">
-            {children}
-          </div>
-        </NextIntlClientProvider>
+        <Providers>
+          <NextIntlClientProvider messages={messages}>
+            <div className="container">
+              {children}
+            </div>
+          </NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
   )

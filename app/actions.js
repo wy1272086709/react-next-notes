@@ -84,11 +84,11 @@ export async function importNote(formData) {
   }
 
   try {
-    console.log('2. File 对象名称的字节表示:', new TextEncoder().encode(file.name));
-    console.log('3. 通过 URL 编码后的名称:', encodeURIComponent(file.name));
-    console.log('4. 当前 Node.js 环境语言环境:', process.env.LANG);
     console.log('上传的文件信息：', file);
+
+    // 移除文件扩展名获取标题
     const filename = file.name.replace(/\.[^/.]+$/, "")
+
     const blob = await put(file.name, file, {
       access: 'public', // 文件可公开访问
       contentType: file.type, // 保持原有的文件类型
@@ -97,12 +97,14 @@ export async function importNote(formData) {
       },
       addRandomSuffix: true, // 为文件名添加随机后缀
     });
+
     const bytes = await file.arrayBuffer();
     console.log('blob:', blob);
-    console.log('filename:', filename.toString('utf-8'));
+    console.log('filename:', filename);
+
     // 调用接口，写入数据库
     const res = await addNote(JSON.stringify({
-      title: filename.toString('utf-8'),
+      title: filename,
       content: Buffer.from(bytes).toString('utf-8')
     }));
 

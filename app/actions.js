@@ -30,7 +30,6 @@ function getLocale() {
 }
 
 export async function saveNote(prevState, formData) {
-
   // 获取 noteId
   const noteId = formData.get('noteId')
   const data = {
@@ -76,7 +75,17 @@ export async function deleteNote(prevState, formData) {
 
 export async function importNote(formData) {
   'use server';
-  const file = formData.get('file')
+
+  // Server Action 中，formData 可能是普通对象或 FormData
+  // 需要判断并处理
+  let file;
+  if (formData instanceof FormData) {
+    file = formData.get('file');
+  } else if (formData.file) {
+    file = formData.file;
+  } else {
+    return { error: "Invalid formData format." };
+  }
 
   // 空值判断
   if (!file) {
@@ -84,10 +93,28 @@ export async function importNote(formData) {
   }
 
   try {
-    console.log('上传的文件信息：', file);
+    // 打印文件名而不是整个 File 对象，避免序列化问题
+    console.log('上传的文件名：', file.name);
+    console.log('文件类型：', file.type);
+    console.log('文件大小：', file.size, 'bytes');
 
-    // 移除文件扩展名获取标题
-    const filename = file.name.replace(/\.[^/.]+$/, "")
+    // 处理中文文件名，移除扩展名获取标题
+    // File 对象的 name 属性已经是正确解码的字符串
+    // 如果是上传的文件名包含特殊字符编码（如 URL 编码），需要解码
+    let filename = file.name;
+
+    // 尝试解码 URL 编码的文件名（如果有）
+    try {
+      if (filename.includes('%')) {
+        filename = decodeURIComponent(filename);
+      }
+    } catch (e) {
+      // 如果解码失败，使用原始文件名
+      console.warn('文件名解码失败，使用原始文件名:', e);
+    }
+
+    // 移除文件扩展名
+    const title = filename.replace(/\.[^/.]+$/, "")
 
     const blob = await put(file.name, file, {
       access: 'public', // 文件可公开访问
@@ -100,11 +127,11 @@ export async function importNote(formData) {
 
     const bytes = await file.arrayBuffer();
     console.log('blob:', blob);
-    console.log('filename:', filename);
+    console.log('title:', title);
 
     // 调用接口，写入数据库
     const res = await addNote(JSON.stringify({
-      title: filename,
+      title: title,
       content: Buffer.from(bytes).toString('utf-8')
     }));
 

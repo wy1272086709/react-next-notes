@@ -19,21 +19,28 @@ export default function SidebarImport() {
     }
 
     const file = fileInput.files[0];
+    console.log("选择的文件：", file.name);
 
+    // 使用 FormData 包装文件
     const formData = new FormData();
     formData.append("file", file);
-    console.log("formData:", formData);
+
     try {
       const data = await importNote(formData);
-      router.push(`/${locale}/note/${data.uid}`)
+      if (data.error) {
+        console.error("导入失败:", data.error);
+        alert(data.error);
+        return;
+      }
+      router.push(`/${locale}/note/${data.uid}`);
 
     } catch (error) {
-      console.error("something went wrong");
+      console.error("导入出错:", error);
+      alert("导入失败，请重试");
     }
 
     // 重置 file input
-    e.target.type = "text";
-    e.target.type = "file";
+    e.target.value = '';
   };
 
 

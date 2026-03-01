@@ -147,15 +147,8 @@ export default function SignIn() {
 
   return (
     <div className="login-wrapper">
-      <div className="login-container">
+      <div>
         <div className="login-header">
-          <img
-            className="logo"
-            src="/logo.svg"
-            width="44px"
-            height="40px"
-            alt="Logo"
-          />
           <h1>{isLogin ? t('login') : t('register')}</h1>
         </div>
 

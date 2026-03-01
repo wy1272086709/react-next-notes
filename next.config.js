@@ -7,5 +7,6 @@ const nextConfig = {
     env: {
         _next_intl_trailing_slash: 'false', // or 'true' based on your needs
     },
+    transpilePackages: ['undici'], // 添加这一行
 }
 module.exports = withNextIntl(nextConfig)

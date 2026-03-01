@@ -19,9 +19,16 @@ export default function SidebarImport() {
     const file = fileInput.files[0];
     console.log("选择的文件：", file.name);
     console.log("File details before appending to FormData:", file);
-
+    const formData = new FormData();
+    formData.append("file", file);
     try {
-      const data = await importNote(file);
+      // const data = await importNote(formData);
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      console.log("API 返回数据：", data);
       if (data.error) {
         console.error("导入失败:", data.error);
         alert(data.error);

@@ -30,6 +30,9 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+        <meta charSet="UTF-8" />
+      </head>
       <body>
         <Providers>
           <NextIntlClientProvider messages={messages}>

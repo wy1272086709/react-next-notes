@@ -19,12 +19,9 @@ export default function SidebarImport() {
     const file = fileInput.files[0];
     console.log("选择的文件：", file.name);
     console.log("File details before appending to FormData:", file);
-    // 使用 FormData 包装文件
-    const formData = new FormData();
-    formData.append("file", file);
 
     try {
-      const data = await importNote(formData);
+      const data = await importNote(file);
       if (data.error) {
         console.error("导入失败:", data.error);
         alert(data.error);

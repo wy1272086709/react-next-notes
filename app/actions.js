@@ -73,19 +73,11 @@ export async function deleteNote(prevState, formData) {
   redirect(`/${locale}`)
 }
 
-export async function importNote(formData) {
+export async function importNote(file) {
   'use server';
 
   // Server Action 中，formData 可能是普通对象或 FormData
   // 需要判断并处理
-  let file;
-  if (formData instanceof FormData) {
-    file = formData.get('file');
-  } else if (formData.file) {
-    file = formData.file;
-  } else {
-    return { error: "Invalid formData format." };
-  }
 
   // 空值判断
   if (!file) {

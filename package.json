@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npx prisma generate --no-engine && next dev",
+    "preinstall": "npx npm-force-resolutions",
     "build": "npx prisma generate --no-engine && npx prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
@@ -27,6 +28,10 @@
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
+    "npm-force-resolutions": "^0.0.10",
     "prisma": "^5.8.1"
+  },
+  "overrides": {
+    "undici": "5.21.0"
   }
 }

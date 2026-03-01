@@ -11,7 +11,7 @@ CREATE TABLE `User` (
 CREATE TABLE `Note` (
     `id` VARCHAR(191) NOT NULL,
     `title` TEXT NOT NULL,
-    `content` TEXT NOT NULL,
+    `content` TEXT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
     `authorId` VARCHAR(191) NOT NULL,

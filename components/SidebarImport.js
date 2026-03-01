@@ -12,15 +12,13 @@ export default function SidebarImport() {
 
   const onChange = async (e) => {
     const fileInput = e.target;
-
     if (!fileInput.files || fileInput.files.length === 0) {
       console.warn("files list is empty");
       return;
     }
-
     const file = fileInput.files[0];
     console.log("选择的文件：", file.name);
-
+    console.log("File details before appending to FormData:", file);
     // 使用 FormData 包装文件
     const formData = new FormData();
     formData.append("file", file);
